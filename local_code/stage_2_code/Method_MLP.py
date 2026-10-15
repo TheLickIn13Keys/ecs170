@@ -22,7 +22,7 @@ class Method_MLP(method, nn.Module):
     # it defines the MLP model architecture, e.g.,
     # how many layers, size of variables in each layer, activation function, etc.
     # the size of the input/output portal of the model architecture should be consistent with our data input and desired output
-    def __init__(self, mName, mDescription, hidden_dims=(256, 128), activation='relu',
+    def __init__(self, mName, mDescription, hidden_dims=(256, 128),
                  loss='cross_entropy', optimizer='adam', learning_rate=1e-3,
                  max_epoch=20, batch_size=128):
         method.__init__(self, mName, mDescription)
@@ -35,14 +35,13 @@ class Method_MLP(method, nn.Module):
         self.max_epoch = max_epoch
         self.batch_size = batch_size
 
-        # check here for nn.ReLU doc: https://pytorch.org/docs/stable/generated/torch.nn.ReLU.html
-        activations = {'relu': nn.ReLU, 'tanh': nn.Tanh, 'sigmoid': nn.Sigmoid}
         # check here for nn.Linear doc: https://pytorch.org/docs/stable/generated/torch.nn.Linear.html
         layers = []
         in_dim = self.input_dim
         for h_dim in hidden_dims:
             layers.append(nn.Linear(in_dim, h_dim))
-            layers.append(activations[activation]())
+            # check here for nn.ReLU doc: https://pytorch.org/docs/stable/generated/torch.nn.ReLU.html
+            layers.append(nn.ReLU())
             in_dim = h_dim
         # 10 output as per "the first element denotes the label with value from {0, 1, 2, …, 9"
         layers.append(nn.Linear(in_dim, self.output_dim))

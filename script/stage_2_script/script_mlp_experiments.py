@@ -14,7 +14,7 @@ from local_code.stage_2_code.Plot_Learning_Curve import plot_learning_curves
 import numpy as np
 import torch
 
-DEFAULT = dict(hidden_dims=(256, 128), activation='relu', loss='cross_entropy',
+DEFAULT = dict(hidden_dims=(256, 128), loss='cross_entropy',
                optimizer='adam', learning_rate=1e-3, max_epoch=20, batch_size=128)
 
 EXPERIMENTS = {
@@ -34,11 +34,6 @@ EXPERIMENTS = {
         'SGD momentum lr=1e-2': dict(optimizer='sgd', learning_rate=1e-2),
         'RMSprop lr=1e-3': dict(optimizer='rmsprop'),
         'Adagrad lr=1e-2': dict(optimizer='adagrad', learning_rate=1e-2),
-    },
-    'activation': {
-        'ReLU': dict(),
-        'Tanh': dict(activation='tanh'),
-        'Sigmoid': dict(activation='sigmoid'),
     },
 }
 

@@ -26,7 +26,7 @@ if __name__ == "__main__":
     data_obj = Dataset_Loader('stage 2 dataset', '')
     data_obj.dataset_source_folder_path = str(PROJECT_ROOT / 'data/stage_2_data') + '/'
 
-    method_obj = Method_MLP('multi-layer perceptron', '', hidden_dims=(256, 128), activation='relu',
+    method_obj = Method_MLP('multi-layer perceptron', '', hidden_dims=(256, 128),
                             loss='cross_entropy', optimizer='adam', learning_rate=1e-3,
                             max_epoch=20, batch_size=128)
 
