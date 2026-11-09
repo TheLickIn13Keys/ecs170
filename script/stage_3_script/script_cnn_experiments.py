@@ -22,16 +22,16 @@ data = data_obj.load()
 # Compare kernel sizes
 experiments = [
     # Experiment 1: Kernel size (3x3 -> 5x5)
-    # {'name': 'Kernel_5x5', 'kernel_size': 5, 'pooling': 'max', 'dim': 256, 'layers': 3},
+    {'name': 'Kernel_5x5', 'kernel_size': 5, 'pooling': 'max', 'dim': 256, 'layers': 3},
 
     # Experiment 2: Pooling (MaxPool -> AvgPool)
-    # {'name': 'Pooling_Avg', 'kernel_size': 3, 'pooling': 'avg', 'dim': 256, 'layers': 3},
+    {'name': 'Pooling_Avg', 'kernel_size': 3, 'pooling': 'avg', 'dim': 256, 'layers': 3},
 
     # Experiment 3: Hidden dimension (256 -> 128)
-    # {'name': 'Hidden_128', 'kernel_size': 3, 'pooling': 'max', 'dim': 128, 'layers': 3},
+    {'name': 'Hidden_128', 'kernel_size': 3, 'pooling': 'max', 'dim': 128, 'layers': 3},
 
     # Experiment 4: CNN depth (3 -> 2 convolutional layers)
-     {'name': 'Depth_2', 'kernel_size': 3, 'pooling': 'max', 'dim': 256, 'layers': 2},
+    {'name': 'Depth_2', 'kernel_size': 3, 'pooling': 'max', 'dim': 256, 'layers': 2},
 
     # Experiment 5: Loss function (CrossEntropy -> MultiMargin)
     {'name': 'Loss_MultiMargin', 'kernel_size': 3, 'pooling': 'max', 'dim': 256, 'layers': 3, 'loss': 'multi_margin'},

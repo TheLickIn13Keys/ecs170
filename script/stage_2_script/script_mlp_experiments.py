@@ -13,6 +13,7 @@ from local_code.stage_2_code.Plot_Learning_Curve import plot_learning_curves
 
 import numpy as np
 import torch
+from script.stage_2_script.script_load_result import save_metrics_table
 
 DEFAULT = dict(hidden_dims=(256, 128), loss='cross_entropy',
                optimizer='adam', learning_rate=1e-3, max_epoch=20, batch_size=128)
@@ -79,5 +80,6 @@ if __name__ == "__main__":
         lines.append('| {} | {} | '.format(group, label) +
                      ' | '.join('{:.4f}'.format(scores[m]) for m in metrics) + ' |')
     table = '\n'.join(lines)
+    save_metrics_table(rows, result_dir / 'metrics.csv')
     print('************ Summary ************')
     print(table)
