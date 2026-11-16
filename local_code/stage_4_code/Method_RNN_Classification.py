@@ -1,4 +1,3 @@
-
 import numpy as np
 import torch
 from torch import nn
@@ -12,25 +11,49 @@ class Method_RNN_Classification(method, nn.Module):
     learning_rate = 0.001
     batch_size = 64
 
+    
     def __init__(self, mName, mDescription, vocab_size,
-                 embedding_dim=100, hidden_dim=128):
+                embedding_dim=100, hidden_dim=128,
+                rnn_type="RNN"):
+
         method.__init__(self, mName, mDescription)
         nn.Module.__init__(self)
+
+        self.rnn_type = rnn_type.upper()
 
         self.embedding = nn.Embedding(
             vocab_size, embedding_dim, padding_idx=0
         )
 
-        self.rnn = nn.RNN(
-            input_size=embedding_dim,
-            hidden_size=hidden_dim,
-            batch_first=True
-        )
+        if self.rnn_type == "RNN":
+            self.rnn = nn.RNN(
+                input_size=embedding_dim,
+                hidden_size=hidden_dim,
+                batch_first=True
+            )
+
+        elif self.rnn_type == "LSTM":
+            self.rnn = nn.LSTM(
+                input_size=embedding_dim,
+                hidden_size=hidden_dim,
+                batch_first=True
+            )
+
+        elif self.rnn_type == "GRU":
+            self.rnn = nn.GRU(
+                input_size=embedding_dim,
+                hidden_size=hidden_dim,
+                batch_first=True
+            )
+
+        else:
+            raise ValueError("rnn_type must be RNN, LSTM, or GRU")
 
         self.fc = nn.Linear(hidden_dim, 2)
 
         self.loss_history = []
         self.train_acc_history = []
+
 
     
     def forward(self, x):
@@ -56,7 +79,8 @@ class Method_RNN_Classification(method, nn.Module):
         return self.fc(last_hidden)
 
 
-    def train(self, X, y):
+    def fit(self, X, y):
+        nn.Module.train(self, True)
         X = torch.as_tensor(X, dtype=torch.long)
         y = torch.as_tensor(y, dtype=torch.long)
 
@@ -104,6 +128,7 @@ class Method_RNN_Classification(method, nn.Module):
             )
 
     def test(self, X):
+        nn.Module.train(self, False)
         X = torch.as_tensor(X, dtype=torch.long)
         predictions = []
 
@@ -119,7 +144,7 @@ class Method_RNN_Classification(method, nn.Module):
         print("method running...")
         print("--start training...")
 
-        self.train(
+        self.fit(
             self.data["train"]["X"],
             self.data["train"]["y"]
         )
